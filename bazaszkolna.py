@@ -21,14 +21,21 @@ nauczyciele = []
 wychowawcy = []
 przedmioty = []
 klasy = []
-
+klasy_wych = []
 
 while True:
     akcja = input()
     if akcja == "wychowawca":
         imie = input()
         klasa = input()
-        wychowawcy.append(imie)
+        while klasa:
+            if len(klasa) == 2:
+                klasy_wych.append(klasa)
+                klasa = input()
+                continue
+            else:
+                break
+        wychowawcy.append({imie: klasy_wych})
         klasy.append(klasa)
 
     elif akcja == "uczen":
