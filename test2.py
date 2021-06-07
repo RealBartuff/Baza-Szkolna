@@ -1,65 +1,85 @@
 
-# WEJŚCIA = wychowawca, nauczyciel, uczen, koniec
+import sys
 
-# wychowawcy(imie, klasy) = pokazuje uczniow w klasie (imiona)
-# nauczyciele (imie, przedmiot, klasy) = wychowawcy jego klas
-# uczniowie (imie,klasa) = nauczyciel i przedmiot
-# klasy = wychowawca i uczniowie w tej klasie
-# imiona
-# przednmioty
-# WYJŚCIA: KLASA > WYCHOWAWCY I UCZNIOWIE TEJ KLASY
-#          WYCHOWAWCA > UCZNIOWIE TEGO WYCHOWAWCY
-#          NAUCZYCIEL > WYCHOWAWCY JEGO KLAS
-#          UCZEN > JEGO LEKCJE I NAUCZYCIELE TYCH LEKCJI
-
-# akcja = input()
-# imie = input()
-# klasa = input()
-# przedmiot = input()
 uczniowie = []
-nauczyciele = []
-wychowawcy = []
-przedmioty = []
-klasy = []
+uczniowie_klasa = []
+nauczyciele = {}
+wychowawcy = {}
 klasy_wych = []
-dane_naucz = set()
-
 
 while True:
     akcja = input().strip()
     if akcja == "wychowawca":
         imie = input()
-        klasa = input()
-        while klasa:
-            if len(klasa) == 2:
-                klasy_wych.append(klasa)
-                klasa = input()
+        wychowawcy[imie]=[]
+        while True:
+            klasa = input()
+            if klasa:
+                wychowawcy[imie].append(klasa)
             else:
                 break
-        blank = input()
-        wychowawcy.append({imie: klasy_wych})
-        klasy.append(klasa)
 
     elif akcja == "nauczyciel":
         imie = input()
-        przedmiot = input()
-        klasa = input()
-        dane_naucz.add(przedmiot)
-        dane_naucz.add(klasa)
-        nauczyciele.append({imie:dane_naucz})
-        przedmioty.append(przedmiot)
-        klasy.append(klasa)
+        nauczyciele[imie]={}
+        nauczyciele[imie]["przedmiot"]=input()
+        nauczyciele[imie]["klasy"] = []
+        while True:
+            klasa = input()
+            if klasa:
+                nauczyciele[imie]["klasy"].append(klasa)
+            else:
+                break
 
     elif akcja == "uczen":
         imie = input()
         klasa = input()
-        uczniowie.append({imie:klasa})
+        uczniowie.append({"imie":imie, "klasa":klasa})
 
     elif akcja == "koniec":
         break
 
-print(wychowawcy)
-# print(nauczyciele)
-# print(uczniowie)
-# print(przedmioty)
-# print(klasy)
+
+if len(sys.argv[1]) == 2:
+    wychowawca = ""
+    for imie in wychowawcy:
+        if sys.argv[1] in wychowawcy[imie]: # jeśli NUMER KLASY zawiera się w liście klas danego wychowawcy
+            wychowawca = imie
+    for uczen in uczniowie:
+        if sys.argv[1] == uczen["klasa"]:
+            uczniowie_klasa.append(uczen["imie"])
+    print(wychowawca)
+    for uczn in uczniowie_klasa:
+        print(uczn)
+
+if sys.argv[1] in wychowawcy:
+    klasy_wychowawcy = wychowawcy[sys.argv[1]]
+    uczniowie_wychowawcy = []
+    for uczen in uczniowie:
+        if uczen["klasa"] in klasy_wychowawcy:
+            uczniowie_wychowawcy.append(uczen["imie"])
+    print(uczniowie_wychowawcy)
+
+if sys.argv[1] in nauczyciele:
+    klasy_nauczyciel = nauczyciele[sys.argv[1]]["klasy"]
+    wych_klas = []
+    for wych in wychowawcy:
+        for klasa in wychowawcy[wych]:
+            if klasa in klasy_nauczyciel:
+                wych_klas.append(wych)
+                break
+    print(wych_klas)
+
+imiona_ucz = []
+for uczen in uczniowie:
+    imiona_ucz.append(uczen["imie"])
+if sys.argv[1] in imiona_ucz:
+    klasa_ucznia = ""
+    for uczen in uczniowie:
+        if uczen["imie"] == sys.argv[1]:
+            klasa_ucznia = uczen["klasa"]
+            break
+    for nauczyciel in nauczyciele:
+        if klasa_ucznia in nauczyciele[nauczyciel]["klasy"]:
+            print(nauczyciele[nauczyciel]["przedmiot"])
+            print(nauczyciel)

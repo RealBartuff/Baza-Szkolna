@@ -2,10 +2,8 @@
 import sys
 
 uczniowie = []
-uczniowie_klasa = []
 nauczyciele = {}
 wychowawcy = {}
-klasy_wych = []
 
 while True:
     akcja = input().strip()
@@ -42,6 +40,7 @@ while True:
 
 if len(sys.argv[1]) == 2:
     wychowawca = ""
+    uczniowie_klasa = []
     for imie in wychowawcy:
         if sys.argv[1] in wychowawcy[imie]: # jeśli NUMER KLASY zawiera się w liście klas danego wychowawcy
             wychowawca = imie
@@ -58,7 +57,8 @@ if sys.argv[1] in wychowawcy:
     for uczen in uczniowie:
         if uczen["klasa"] in klasy_wychowawcy:
             uczniowie_wychowawcy.append(uczen["imie"])
-    print(uczniowie_wychowawcy)
+    for ucz in uczniowie_wychowawcy:
+        print(ucz)
 
 if sys.argv[1] in nauczyciele:
     klasy_nauczyciel = nauczyciele[sys.argv[1]]["klasy"]
@@ -68,7 +68,8 @@ if sys.argv[1] in nauczyciele:
             if klasa in klasy_nauczyciel:
                 wych_klas.append(wych)
                 break
-    print(wych_klas)
+    for wych in wych_klas:
+        print(wych)
 
 imiona_ucz = []
 for uczen in uczniowie:
