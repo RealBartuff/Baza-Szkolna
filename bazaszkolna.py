@@ -42,6 +42,9 @@ with open("in.txt") as data:
             klasa = data.readline().rstrip()
             uczniowie[imie] = Uczen(imie, klasa)
 
+        elif stanowisko == "koniec":
+            break
+
 
 wrapper(sys.argv[1], wychowawcy, nauczyciele, uczniowie)
 
