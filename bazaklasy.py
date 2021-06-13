@@ -57,9 +57,8 @@ def wrapper(akcja, wychowawcy, nauczyciele, uczniowie):
             wych.write()
 
     elif akcja in wychowawcy:
-        # pobieramy klasy wychowawcy
-        wychowawca = wychowawcy[akcja]
-        uczniowie_wychowawcy = [] #inicjujemy liste uczniow wychowawcy
+        wychowawca = wychowawcy[akcja]      # pobieramy klasy wychowawcy
+        uczniowie_wychowawcy = []           # inicjujemy liste uczniow wychowawcy
         for uczen, dane in uczniowie.items():
             if dane.clas_name in wychowawca.classes_names:
                 uczniowie_wychowawcy.append(dane)
