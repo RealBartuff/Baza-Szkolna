@@ -1,4 +1,3 @@
-
 import sys
 
 from bazaklasy import Wychowawca, Nauczyciel, Uczen, wrapper
@@ -10,20 +9,24 @@ with open("in.txt") as data:
     uczniowie = {}
 
     while True:
-        stanowisko = data.readline().rstrip()
+        stanowisko = (
+            data.readline().rstrip()
+        )  # czytam pierwszą linię w pliku (w tym przypadku jest to stanowisko osoby)
         if not stanowisko:
             break
 
         elif stanowisko == "wychowawca":
-            imie = data.readline().rstrip()
-            klasy = []
-            while True:
-                klasa = data.readline().rstrip()
+            imie = data.readline().rstrip()  # pobieram imię i nazwisko
+            klasy = []  # tworzę listę klas
+            while True:  # <-- jeśli true dla klas (pętla)
+                klasa = data.readline().rstrip()  # czytam linie z klasą
                 if klasa:
-                    klasy.append(klasa)
+                    klasy.append(klasa)  # dodaję tę klasę do listy klasy
                 else:
                     break
-            wychowawcy[imie] = Wychowawca(imie, klasy)
+            wychowawcy[imie] = Wychowawca(
+                imie, klasy
+            )  # w słowniku wychowawcy pod kluczem[imie] podpinam class Wychowawca(jego imie, jego klasy)
 
         elif stanowisko == "nauczyciel":
             imie = data.readline().rstrip()
@@ -44,7 +47,6 @@ with open("in.txt") as data:
 
         elif stanowisko == "koniec":
             break
-
 
 wrapper(sys.argv[1], wychowawcy, nauczyciele, uczniowie)
 

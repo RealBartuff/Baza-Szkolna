@@ -1,4 +1,3 @@
-
 class Uczen:
     def __init__(self, kid_name, clas_name):
         self.kid_name = kid_name
@@ -9,14 +8,16 @@ class Uczen:
         print(self.kid_name)
 
 
-class Wychowawca:
-    def __init__(self, wych_name, classes_names):
-        self.wych_name = wych_name
+class Wychowawca:  # tworze pustą class Wychowawca
+    def __init__(
+        self, wych_name, classes_names
+    ):  # Przypisuje, ze Wychowawca zawiera w sobie wych_name i class_names
+        self.wych_name = wych_name  # definiuje wych_name i class_names
         self.classes_names = classes_names
         self.type = "wychowawca"
 
-    def write(self):
-        print(self.wych_name)
+    def write(self):  # ta funkcja wypisuje \/
+        print(self.wych_name)  # /\ w tym wypadku wych name
 
 
 class Nauczyciel:
@@ -31,7 +32,9 @@ class Nauczyciel:
         print(self.teach_name)
 
 
-def wrapper(akcja, wychowawcy, nauczyciele, uczniowie):
+def wrapper(
+    akcja, wychowawcy, nauczyciele, uczniowie
+):  # ta funkcja zawiera w sobie parametry akcja(czyli argv, i kolejno trzy słowniki)
     if len(akcja) == 2:
         wychowawca = ""
         uczniowie_klasa = []
@@ -43,7 +46,7 @@ def wrapper(akcja, wychowawcy, nauczyciele, uczniowie):
                 uczniowie_klasa.append(dane2)
         print(wychowawca)
         for uczn in uczniowie_klasa:
-            uczn.write()
+            uczn.write()  # .write() wypisuje nam zgodnie z formatem zawartym w klasie
 
     elif akcja in nauczyciele:
         nauczyciel = nauczyciele[akcja]
@@ -57,8 +60,8 @@ def wrapper(akcja, wychowawcy, nauczyciele, uczniowie):
             wych.write()
 
     elif akcja in wychowawcy:
-        wychowawca = wychowawcy[akcja]      # pobieramy klasy wychowawcy
-        uczniowie_wychowawcy = []           # inicjujemy liste uczniow wychowawcy
+        wychowawca = wychowawcy[akcja]  # pobieramy klasy wychowawcy
+        uczniowie_wychowawcy = []  # inicjujemy liste uczniow wychowawcy
         for uczen, dane in uczniowie.items():
             if dane.clas_name in wychowawca.classes_names:
                 uczniowie_wychowawcy.append(dane)
